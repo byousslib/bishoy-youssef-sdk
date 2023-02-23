@@ -50,7 +50,7 @@ func main() {
 ## Read the Docs:
 
 In order to read the documentation of the project you can either go to the GoDocs Website
-[here](https://godocs.io/)
+[here](https://godocs.io/github.com/byousslib/bishoy-youssef-sdk)
 
 *OR*
 
