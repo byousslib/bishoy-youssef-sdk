@@ -38,10 +38,23 @@ type apiMovieResult struct {
 	Movies []Movie `json:"docs"`
 }
 
+// Movie API returns a single movie given an ID
+func (c *Client) Movie(id string) (Movie, error) {
+	requestedMovie, err := c.Movies(id)
+	if err != nil {
+		return Movie{}, err
+	}
+	return requestedMovie[0], nil
+}
+
 // This is the main API of the SDK, it return all the movies that are available in the database.
 // The return is an array of Movies struct
-func (c *Client) Movies() ([]Movie, error) {
-	resp, err := c.httpWrapper.Get("/movie")
+func (c *Client) Movies(id ...string) ([]Movie, error) {
+	requestedID := ""
+	if len(id) > 0 {
+		requestedID = "/" + id[0]
+	}
+	resp, err := c.httpWrapper.Get("/movie" + requestedID)
 	if err != nil {
 		return []Movie{}, err
 	}

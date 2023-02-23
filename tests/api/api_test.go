@@ -8,6 +8,7 @@ import (
 
 	sdk "github.com/byousslib/bishoy-youssef-sdk"
 	httpexpect "github.com/gavv/httpexpect/v2"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -121,4 +122,29 @@ func TestMovieCompatible(t *testing.T) {
 		Status(http.StatusOK).
 		JSON().
 		Decode(&testMoviesInstance)
+}
+
+func TestGetSingleMovie(t *testing.T) {
+	e := httpexpect.Default(t, api_url)
+
+	auth := e.Builder(func(req *httpexpect.Request) {
+		req.WithHeader("Authorization", "Bearer "+token)
+	})
+
+	var testMoviesInstance testMovies
+	auth.GET("/movie").
+		Expect().
+		Status(http.StatusOK).
+		JSON().
+		Decode(&testMoviesInstance)
+
+	var movieResult testMovies
+	auth.GET("/movie/" + testMoviesInstance.Docs[0].ID).
+		Expect().
+		Status(http.StatusOK).
+		JSON().
+		Decode(&movieResult)
+
+	assert.Len(t, movieResult.Docs, 1, "should only return a single movie")
+	assert.Equal(t, testMoviesInstance.Docs[0].Name, movieResult.Docs[0].Name, "Make sure the api returns the same movie")
 }

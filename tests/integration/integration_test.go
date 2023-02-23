@@ -48,7 +48,7 @@ func countCurrentMovies() int {
 	return result.Total
 }
 
-func TestHelloWorld(t *testing.T) {
+func TestGetMovies(t *testing.T) {
 	config := lotrSdk.Config{ApiKey: token}
 
 	lotrClient := lotrSdk.Init(config)
@@ -58,4 +58,17 @@ func TestHelloWorld(t *testing.T) {
 	assert.Nil(t, err, "SDK should not return an error")
 	assert.NotEmpty(t, movies, "The SDK should return data")
 	assert.Equal(t, countCurrentMovies(), len(movies))
+}
+
+func TestGetSingleMovie(t *testing.T) {
+	config := lotrSdk.Config{ApiKey: token}
+
+	lotrClient := lotrSdk.Init(config)
+
+	movies, _ := lotrClient.Movies()
+
+	movie, err := lotrClient.Movie(movies[0].ID)
+	assert.Nil(t, err, "SDK should not return an error")
+	assert.NotEmpty(t, movie, "The SDK should return data")
+	assert.Equal(t, movies[0].Name, movie.Name)
 }
