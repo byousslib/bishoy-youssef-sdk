@@ -32,3 +32,8 @@ Install `godoc` locally by running the command:
 `go install -v golang.org/x/tools/cmd/godoc@latest`
 
 Then run `godoc -http=:6060 &` to be able to view the documentation locally (on port 6060)
+
+## P.S.
+
+- In order not to clutter my personal github account, I have created this new account for the purpose of the task
+- I had to squash all the commits into one as the initial commits (when the repo was private) had the API hard coded
