@@ -78,7 +78,7 @@ The tests are split into 3 categories:
 
 
 
-
+<!---
 TODO:
 - [x] Implement http test to make sure the API is working as expected
 - [x] Implement SDK import test
@@ -97,3 +97,4 @@ Features:
 - Movie Struct
 - Movies Struct ???
 - quotes struct
+--->
